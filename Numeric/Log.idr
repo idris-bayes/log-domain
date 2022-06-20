@@ -59,3 +59,11 @@ Eq a => Eq (Log a) where
 public export
 Ord a => Ord (Log a) where
   Exp a < Exp b = a < b
+
+public export
+Cast Double (Log Double) where
+  cast a = Exp (log a)
+
+public export
+Cast (Log Double) Double  where
+  cast (Exp a) = exp a
