@@ -51,3 +51,11 @@ Neg (Log Double) where
 public export
 Fractional (Log Double) where
   Exp a / Exp b = Exp (a - b)
+
+public export
+Eq a => Eq (Log a) where
+  Exp a == Exp b = a == b 
+
+public export
+Ord a => Ord (Log a) where
+  Exp a < Exp b = a < b
