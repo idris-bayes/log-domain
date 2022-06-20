@@ -67,3 +67,7 @@ Cast Double (Log Double) where
 public export
 Cast (Log Double) Double  where
   cast (Exp a) = exp a
+
+public export
+Cast Nat (Log Double)  where
+  cast n = Exp (log $ cast n)
