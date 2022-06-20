@@ -16,7 +16,7 @@ package log-domain
 -- depends =
 
 -- modules to install
--- modules =
+modules = Numeric.Log
 
 -- main file (i.e. file to load at REPL)
 -- main =
