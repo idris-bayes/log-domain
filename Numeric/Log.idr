@@ -61,13 +61,6 @@ Ord a => Ord (Log a) where
   Exp a < Exp b = a < b
 
 public export
-Cast Double (Log Double) where
-  cast a = Exp (log a)
-
-public export
-Cast (Log Double) Double  where
-  cast (Exp a) = exp a
-
-public export
 Cast Nat (Log Double)  where
-  cast n = Exp (log $ cast n)
+  -- This assumes the Nat we cast is the desired value in the log domain. Otherwise, `Exp (log (cast n))`.
+  cast n = Exp (cast n) 
