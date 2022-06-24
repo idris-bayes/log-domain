@@ -12,6 +12,9 @@ negInf = -(1/0)
 %foreign "C:c_log1p,libm"
 c_log1p : Double -> Double
 
+%foreign "C:c_expm1,libm"
+c_expm1 : Double -> Double
+
 log1p = c_log1p
 
 log1pexp : Double -> Double
@@ -64,3 +67,19 @@ public export
 Cast Nat (Log Double)  where
   -- This assumes the Nat we cast is the desired value in the log domain. Otherwise, `Exp (log (cast n))`.
   cast n = Exp (cast n) 
+
+data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
+
+export
+sum : (Foldable f) => f (Log Double) -> Log Double
+sum xs = Exp $ case foldl step1 None xs of
+  None => negInf
+  MkAcc nm1 a => 
+    if isInf a then a
+    else a + log1p (foldl (step2 a) 0 xs + cast nm1)
+  where
+    step1 : Acc Double -> Log Double -> Acc Double
+    step1 None      (Exp x) = MkAcc 0 x
+    step1 (MkAcc n y) (Exp x) = MkAcc (n + 1) (max x y)
+    step2 : Double -> Double -> Log Double -> Double
+    step2 a r (Exp x) = r + c_expm1 (x - a)
