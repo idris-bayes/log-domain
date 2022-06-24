@@ -15,13 +15,11 @@ c_log1p : Double -> Double
 %foreign "C:c_expm1,libm"
 c_expm1 : Double -> Double
 
-log1p = c_log1p
-
 log1pexp : Double -> Double
-log1pexp a = log1p (exp a)
+log1pexp a = c_log1p (exp a)
 
 log1mexp : Double -> Double
-log1mexp a = log1p (negate (exp a))
+log1mexp a = c_log1p (negate (exp a))
 
 ||| Log Domain
 public export
@@ -68,6 +66,8 @@ Cast Nat (Log Double)  where
   -- This assumes the Nat we cast is the desired value in the log domain. Otherwise, `Exp (log (cast n))`.
   cast n = Exp (cast n) 
 
+
+||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
 
 export
@@ -76,7 +76,7 @@ sum xs = Exp $ case foldl step1 None xs of
   None => negInf
   MkAcc nm1 a => 
     if isInf a then a
-    else a + log1p (foldl (step2 a) 0 xs + cast nm1)
+    else a + c_log1p (foldl (step2 a) 0 xs + cast nm1)
   where
     step1 : Acc Double -> Log Double -> Acc Double
     step1 None      (Exp x) = MkAcc 0 x
