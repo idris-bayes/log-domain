@@ -9,10 +9,10 @@ export
 negInf : (Neg a, Fractional a) => a
 negInf = -(1/0)
 
-%foreign "C:c_log1p,libm"
+%foreign "C:c_log1p,log-domain"
 c_log1p : Double -> Double
 
-%foreign "C:c_expm1,libm"
+%foreign "C:c_expm1,log-domain"
 c_expm1 : Double -> Double
 
 log1pexp : Double -> Double
