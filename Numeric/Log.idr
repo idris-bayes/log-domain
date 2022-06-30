@@ -91,7 +91,7 @@ fromLogDomain : Log Double -> Double
 fromLogDomain = exp . ln 
 
 public export
-||| Intentionally compares (Exp x) with negInf via "exp x > 0", rather than via "x > negInf". 
+||| Checks if value is positive in the non-log-domain. Intentionally compares (Exp x) by "exp x > 0", rather than by "x > negInf". 
 isPositive : Log Double -> Bool
 isPositive z = (fromLogDomain z) > 0
 
