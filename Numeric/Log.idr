@@ -68,7 +68,7 @@ Ord a => Ord (Log a) where
 
 public export
 interface ToLogDomain a where
-  toLogDomain : a -> Log Double
+  toLogDomain   : a -> Log Double
 
 public export
 ToLogDomain Double where
@@ -84,7 +84,11 @@ ToLogDomain Int where
 
 public export
 ToLogDomain Integer where
-  toLogDomain = Exp . log . cast
+  toLogDomain   = Exp . log . cast
+
+public export
+fromLogDomain : Log Double -> Double
+fromLogDomain = exp . ln 
 
 public export
 ||| Intentionally compares (Exp x) with negInf via "exp x > 0", rather than via "x > negInf". 
