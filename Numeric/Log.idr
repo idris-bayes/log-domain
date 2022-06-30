@@ -28,8 +28,8 @@ record Log (a : Type) where
   ln : a
 
 public export
-Show a => Show (Log a) where
-  show (Exp a) = "Exp " ++ show a
+Show (Log Double) where
+  show (Exp a) = show (exp a)
 
 public export
 Functor Log where
