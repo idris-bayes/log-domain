@@ -27,6 +27,7 @@ record Log (a : Type) where
   constructor Exp
   ln : a
 
+
 public export
 Show (Log Double) where
   show (Exp a) = show (exp a)
@@ -64,6 +65,22 @@ Eq a => Eq (Log a) where
 public export
 Ord a => Ord (Log a) where
   Exp a < Exp b = a < b
+
+public export
+interface ToLogDomain a where
+  toLogDomain : a -> Log Double
+
+public export
+ToLogDomain Double where
+  toLogDomain = Exp . log
+
+public export
+ToLogDomain Nat where
+  toLogDomain = Exp . log . cast
+
+public export
+ToLogDomain Int where
+  toLogDomain = Exp . log . cast
 
 ||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
