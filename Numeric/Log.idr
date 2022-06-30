@@ -82,6 +82,10 @@ public export
 ToLogDomain Int where
   toLogDomain = Exp . log . cast
 
+public export
+ToLogDomain Integer where
+  toLogDomain = Exp . log . cast
+
 ||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
 
