@@ -65,12 +65,6 @@ public export
 Ord a => Ord (Log a) where
   Exp a < Exp b = a < b
 
-public export
-Cast Nat (Log Double)  where
-  -- This assumes the Nat we cast is the desired value in the log domain. Otherwise, `Exp (log (cast n))`.
-  cast n = Exp (cast n) 
-
-
 ||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
 
