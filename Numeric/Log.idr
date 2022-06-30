@@ -86,6 +86,11 @@ public export
 ToLogDomain Integer where
   toLogDomain = Exp . log . cast
 
+public export
+||| Intentionally compares (Exp x) with negInf via "exp x > 0", rather than via "x > negInf". 
+isPositive : Log Double -> Bool
+isPositive z = (exp . ln) z > 0
+
 ||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
 
