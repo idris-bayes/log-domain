@@ -57,8 +57,8 @@ public export
 Fractional (Log Double) where
   Exp a / Exp b = Exp (a - b)
 
-
 ||| Note: Exp a == Exp b is not equivalent to exp a == exp b, and similarly for Exp a < Exp b.
+||| Checking that a value 'x' in (Exp x) is not zero in the non-log domain should be done via 'exp x /= 0', rather than as `Exp x /= Exp (log 0).
 public export
 Eq a => Eq (Log a) where
   Exp a == Exp b = a == b 
@@ -92,11 +92,6 @@ ToLogDomain Integer where
 public export
 fromLogDomain : Log Double -> Double
 fromLogDomain = exp . ln 
-
-||| Checks if value is positive in the non-log-domain. Intentionally compares (Exp x) by "exp x > 0", rather than by "x > negInf". 
-public export
-isPositive : Log Double -> Bool
-isPositive z = (fromLogDomain z) > 0
 
 ||| Efficiently and accurately compute the sum of a set of log-domain numbers
 data Acc a = MkAcc {-# UNPACK #-} Int64 a | None
