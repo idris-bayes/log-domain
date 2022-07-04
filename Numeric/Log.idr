@@ -27,10 +27,9 @@ record Log (a : Type) where
   constructor Exp
   ln : a
 
-
 public export
 Show (Log Double) where
-  show (Exp a) = show (exp a)
+  show (Exp a) = "Exp " ++ show a
 
 public export
 Functor Log where
@@ -58,6 +57,8 @@ public export
 Fractional (Log Double) where
   Exp a / Exp b = Exp (a - b)
 
+
+||| Note: Exp a == Exp b is not equivalent to exp a == exp b, and similarly for Exp a < Exp b.
 public export
 Eq a => Eq (Log a) where
   Exp a == Exp b = a == b 
@@ -66,6 +67,7 @@ public export
 Ord a => Ord (Log a) where
   Exp a < Exp b = a < b
 
+||| Explicitly convert a value to the log domain
 public export
 interface ToLogDomain a where
   toLogDomain   : a -> Log Double
@@ -86,12 +88,13 @@ public export
 ToLogDomain Integer where
   toLogDomain   = Exp . log . cast
 
+||| Explicitly convert a double from the log domain
 public export
 fromLogDomain : Log Double -> Double
 fromLogDomain = exp . ln 
 
-public export
 ||| Checks if value is positive in the non-log-domain. Intentionally compares (Exp x) by "exp x > 0", rather than by "x > negInf". 
+public export
 isPositive : Log Double -> Bool
 isPositive z = (fromLogDomain z) > 0
 
