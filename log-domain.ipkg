@@ -4,5 +4,7 @@ authors   = "Minh Nguyen and Jacob Walters"
 license   = "The BSD 3-Clause License"
 sourceloc = "www.github.com/idris-bayes/log-domain"
 
+prebuild = "cd lib && cc -shared log-domain.c -o log-domain.so"
+
 modules = Numeric.Log
 

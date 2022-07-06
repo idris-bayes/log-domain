@@ -9,4 +9,4 @@ double c_expm1(double x) {
     return (expm1(x));
 }
 
-// cc -shared smallc.c -o libsmall.so
+// cc -shared log-domain.c -o log-domain.so
