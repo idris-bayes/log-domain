@@ -3,8 +3,8 @@ package log-domain
 authors   = "Minh Nguyen and Jacob Walters"
 license   = "The BSD 3-Clause License"
 sourceloc = "www.github.com/idris-bayes/log-domain"
+brief     = "A small representation of numerical computations in the log domain.
+prebuild  = "cd lib && cc -shared log-domain.c -o log-domain.so"
 
-prebuild = "cd lib && cc -shared log-domain.c -o log-domain.so"
-
-modules = Numeric.Log
+modules   = Numeric.Log
 
