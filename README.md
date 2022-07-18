@@ -1,1 +1,1 @@
-A small (incomplete) Idris2 translation of the Haskell library [log-domain](https://hackage.haskell.org/package/log-domain) for numerical computations in the log domain.
+A partial port of the Haskell library [log-domain](https://hackage.haskell.org/package/log-domain) into Idris2 for numerics in the log domain.
